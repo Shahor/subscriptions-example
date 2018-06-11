@@ -1,0 +1,20 @@
+version: '3.5'
+
+# This allows joining the root docker-compose file network
+networks:
+  slite_default:
+    name: slite_default
+services:
+  subscriptions:
+    tty: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "9002:9002"
+      - "4000:4000"
+    expose:
+      - 9002
+      - 4000
+    networks:
+      - slite_default

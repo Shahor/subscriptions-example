@@ -1,7 +1,14 @@
 const { GraphQLServer } = require("graphql-yoga")
+const { withFilter } = require("graphql-subscriptions")
 const { RedisPubSub } = require("graphql-redis-subscriptions")
 
 const CHANNEL = "noteCreated"
+
+const pubsub = new RedisPubSub({
+	connection: {
+		host: "api-redis",
+	},
+})
 
 const typeDefs = `
 	type Query {
@@ -37,18 +44,17 @@ const typeDefs = `
 const resolvers = {
 	Subscription: {
 		noteCreated: {
-			subscribe: (parent, args, { pubsub }) => {
-				return pubsub.asyncIterator(CHANNEL)
-			},
+			subscribe: withFilter(
+				function() {
+					return pubsub.asyncIterator(CHANNEL)
+				},
+				function filterFn() {
+					return true
+				}
+			),
 		},
 	},
 }
-
-const pubsub = new RedisPubSub()
 const server = new GraphQLServer({ typeDefs, resolvers, context: { pubsub } })
-
-// pubsub.subscribe(CHANNEL, function handleOnMessage(message) {
-// 	console.log(message)
-// })
 
 server.start(() => console.log("Server is running on localhost:4000"))

@@ -25,8 +25,10 @@ process.on("uncaughtException", function(error) {
 	process.exit()
 })
 
+const numberOfSockets = process.argv[2] || 300
+
 async function main() {
-	sockets = await connectionFactory("ws://localhost:4000", 300)
+	sockets = await connectionFactory("ws://localhost:4000", numberOfSockets)
 
 	sockets.forEach(socket => {
 		messages.forEach(message => socket.send(message))
