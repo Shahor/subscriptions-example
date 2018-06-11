@@ -1,0 +1,14 @@
+{
+  "name": "subscriptions",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "graphql-redis-subscriptions": "^1.5.0",
+    "graphql-yoga": "^1.14.7",
+    "ioredis": "^3.2.2",
+    "pm2": "^2.10.4",
+    "ws": "^5.2.0"
+  }
+}
