@@ -4,11 +4,7 @@ const { RedisPubSub } = require("graphql-redis-subscriptions")
 
 const CHANNEL = "noteCreated"
 
-const pubsub = new RedisPubSub({
-	connection: {
-		host: "api-redis",
-	},
-})
+const pubsub = new RedisPubSub()
 
 const typeDefs = `
 	type Query {
@@ -42,18 +38,18 @@ const typeDefs = `
 	}
 `
 const resolvers = {
-	Subscription: {
-		noteCreated: {
-			subscribe: withFilter(
-				function() {
-					return pubsub.asyncIterator(CHANNEL)
-				},
-				function filterFn() {
-					return true
-				}
-			),
-		},
-	},
+    Subscription: {
+        noteCreated: {
+            subscribe: withFilter(
+                function() {
+                    return pubsub.asyncIterator(CHANNEL)
+                },
+                function filterFn() {
+                    return true
+                }
+            ),
+        },
+    },
 }
 const server = new GraphQLServer({ typeDefs, resolvers, context: { pubsub } })
 
