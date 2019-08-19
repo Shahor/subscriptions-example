@@ -7,9 +7,10 @@
 		"start": "node --inspect=0.0.0.0:9002 index.js"
 	},
 	"dependencies": {
+		"apollo-server": "^2.8.1",
 		"chalk": "^2.4.1",
+		"graphql": "^14.4.2",
 		"graphql-redis-subscriptions": "^1.5.0",
-		"graphql-yoga": "^1.14.7",
 		"ioredis": "^3.2.2",
 		"ws": "^5.2.0"
 	}
