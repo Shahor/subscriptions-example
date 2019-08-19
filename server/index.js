@@ -62,3 +62,10 @@ const server = new ApolloServer({
 })
 
 server.listen().then(() => console.log("Server is running on localhost:4000"))
+
+setInterval(function() {
+  const date = new Date()
+  console.log(
+    `🏃‍♂️: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`
+  )
+}, 1000)
