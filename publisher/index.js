@@ -39,7 +39,7 @@ function computeNumberAndWaitTime(numberOfMessagesPerMinute) {
   }
 }
 
-const RATE = process.argv[2] || 200
+const RATE = process.argv[2] || 500
 
 async function main() {
   const { number, interval } = computeNumberAndWaitTime(RATE)
